@@ -1,0 +1,34 @@
+[package]
+name = "power-menu"
+version = "0.1.0"
+authors = ["SAANN3 <95036865+SAANN3@users.noreply.github.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+dioxus = { version = "0.6.1", features = ["desktop"] }
+dioxus-desktop = "0.6.1"
+
+# Debug
+dioxus-logger = "0.6.1"
+image = "0.25.5"
+include_dir = "=0.7.4"
+ksni = "0.2.2"
+log = "0.4.22"
+manganis = "0.6.1"
+tokio = "1.42.0"
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
+
