@@ -16,4 +16,4 @@ After that you can move binary anywhere
 
 ## Usage
 
-Put it autostarting and then, when you need to launch it, click on the power icon at system tray
+Add it to autostart and then, when you need to launch it, click on the power icon in the system tray
