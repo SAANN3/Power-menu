@@ -13,3 +13,7 @@ cargo build
 Builded binary will be located in ```target/debug/power-menu```
 
 After that you can move binary anywhere
+
+## Usage
+
+Put it autostarting and then, when you need to launch it, click on the power icon at system tray
