@@ -1,3 +1,8 @@
+:root {
+    --global-color: white;
+    --global-bg-color: #28292a
+}
+
 body {
     background-color: var(--global-bg-color);
     width: 100vw;
@@ -8,11 +13,6 @@ body {
     max-height: 100vw;
     color: var(--global-color);
     overflow: hidden;
-}
-
-:root {
-    --global-color: aliceblue;
-    --global-bg-color: #28292a
 }
 
 * {
@@ -89,6 +89,7 @@ button:hover {
     height: calc(100% - 35px);
     width: calc(100% - 35px);
     -webkit-user-drag: none;
+    filter: opacity(0.5) drop-shadow(0 0 0 var(--global-color)) saturate(1000%);
 }
 
 .text-div {
