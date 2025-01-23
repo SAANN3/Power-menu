@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus::{document::Title, prelude::{component, rsx, Element}};
+use dioxus::prelude::{component, rsx, Element};
 
 use crate::HoverProps;
 

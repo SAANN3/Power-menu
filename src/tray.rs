@@ -1,18 +1,21 @@
-use dioxus::prelude::*;
+
 use image::{GenericImageView, ImageReader};
 use ksni::Icon;
 use ksni::menu::*;
 
+
 pub struct TrayIcon {
     on_click: Box<(dyn FnMut() -> () + Send)>,
     path: String,
+    custom_color: Option<[u8;4]>
 }
 
 impl TrayIcon {
-    pub fn spawn<F: FnMut() + Send + 'static> (path: String, on_click: F) {
+    pub fn spawn<F: FnMut() + Send + 'static> (path: String, on_click: F, custom_rgba8: Option<[u8;4]>) {
         let tray =  TrayIcon{
             on_click: Box::new(on_click),
             path: path,
+            custom_color: custom_rgba8,
         };
         let service = ksni::TrayService::new(tray);
         let _handle = service.handle();
@@ -27,8 +30,16 @@ impl ksni::Tray for TrayIcon {
             .decode()
             .unwrap();
         let (width, height) = image.dimensions();
+        let mut image_rgba8 = image.to_rgba8().to_vec();
+        if self.custom_color.is_some() {
+            for chunk in image_rgba8.chunks_exact_mut(4) {
+                if chunk[3] != 0 {
+                    chunk.copy_from_slice(&self.custom_color.unwrap());
+                }
+            }
+        }
         vec![Icon {
-            data: image.to_rgba8().into_vec(),
+            data: image_rgba8,
             width: width as i32,
             height: height as i32
         }]

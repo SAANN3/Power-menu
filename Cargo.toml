@@ -7,6 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+css-color = "0.2.8"
 
 dioxus = { version = "0.6.1", features = ["desktop"] }
 dioxus-desktop = "0.6.1"
@@ -19,8 +20,6 @@ ksni = "0.2.2"
 log = "0.4.22"
 manganis = "0.6.1"
 tokio = "1.42.0"
-
-[profile]
 
 [profile.wasm-dev]
 inherits = "dev"

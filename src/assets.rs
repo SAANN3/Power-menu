@@ -1,5 +1,5 @@
 pub struct LocalAssets {}
-use std::{env, fs::create_dir, path};
+use std::{env, fs::create_dir};
 
 use include_dir::{include_dir, Dir};
 

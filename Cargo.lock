@@ -801,6 +801,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "css-color"
+version = "0.2.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42aaeae719fd78ce501d77c6cdf01f7e96f26bcd5617a4903a1c2b97e388543a"
+
+[[package]]
 name = "cssparser"
 version = "0.27.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3519,6 +3525,7 @@ checksum = "22686f4785f02a4fcc856d3b3bb19bf6c8160d103f7a99cc258bddd0251dc7f2"
 name = "power-menu"
 version = "0.1.0"
 dependencies = [
+ "css-color",
  "dioxus",
  "dioxus-desktop",
  "dioxus-logger",

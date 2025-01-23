@@ -7,25 +7,51 @@ mod assets;
 
 use dioxus::prelude::*;
 use dioxus_desktop::{use_window, window, WindowBuilder};
-use dioxus_elements::option::selected;
 use dioxus_logger::tracing::Level;
-use log::info;
-use std::{alloc::System, env, fs::{self, create_dir}, path::{Path, PathBuf}, process::Command, sync::mpsc::channel, thread::{self, Thread}, time::Duration};
+use std::{env, fs, process::Command, str::FromStr, sync::mpsc::channel, time::Duration};
 use tray::TrayIcon;
 use windowItem::WindowItem;
 use assets::LocalAssets;
+use css_color::Srgb;
+
+
 fn main() {
     LocalAssets::extract_assets();
     let args: Vec<String> = env::args().collect();
+    
     if args.len() == 2 && args[1] == "--open" {
         open_window();
     } else {
         let (tx, rx) = channel();
+
+        let current_color: Option<[u8;4]> = {
+            let path = LocalAssets::get_path("./assets/main.css".to_string());
+            let file = fs::read_to_string(path).unwrap();
+            let color = file
+                .split_once("--global-color:")
+                .unwrap().1
+                .split_once(";")
+                .unwrap().0
+                .replace(" ", "");
+            let srgb_color = Srgb::from_str(&color)
+                .expect(&format!("Error parsing color: '{color}', if the color looks wrong make sure that main.css has something like this `--global-color: YOUR_COLOR;`"));
+
+
+            Some([
+                (srgb_color.alpha    * (255 as f32)) as u8,
+                (srgb_color.red  * (255 as f32)) as u8,
+                (srgb_color.green   * (255 as f32)) as u8,
+                (srgb_color.blue  * (255 as f32)) as u8,
+            ])
+        };
+
+
         TrayIcon::spawn(
             LocalAssets::get_path("./assets/icon.png".to_string()),
             move || {
                 tx.send(0).unwrap();
-            }
+            },
+            current_color
         );
         loop {
             let _ = rx.recv();
@@ -95,14 +121,16 @@ fn App() -> Element {
                         Command::new("reboot")
                             .spawn()
                             .expect("reboot")
-                            .wait();
+                            .wait()
+                            .unwrap();
                     },
                     0 =>  {
                         Command::new("shutdown")
                             .arg("now")
                             .spawn()
                             .expect("shutdown now")
-                            .wait();
+                            .wait()
+                            .unwrap();
                     },
                     -1 => {
                         Command::new("loginctl")
@@ -110,7 +138,8 @@ fn App() -> Element {
                             .arg(env::var_os("XDG_SESSION_ID").unwrap())
                             .spawn()
                             .expect("loginctl terminate-session")
-                            .wait();
+                            .wait()
+                            .unwrap();
                     },
                     _ => {
                         println!("Nothing to see here 0_0");

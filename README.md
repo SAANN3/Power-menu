@@ -23,7 +23,7 @@ Open ```assets/main.css``` and edit the css class
 ```css
 :root {
     --global-color: aliceblue; // icons, text, borders,  basically all 
-    --global-bg-color: #white // background color
+    --global-bg-color: #white; // background color
 }
 ```
 

@@ -1,6 +1,6 @@
 :root {
-    --global-color: white;
-    --global-bg-color: #28292a
+    --global-color: rgb(255, 255, 255);
+    --global-bg-color: #28292a;
 }
 
 body {
