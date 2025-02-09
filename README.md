@@ -7,7 +7,7 @@ Power menu built in rust with dioxus!
 ## How to build
 ```bash
 git clone https://github.com/SAANN3/power-menu.git
-cd power-menu
+cd Power-menu
 cargo build 
 ```
 Builded binary will be located in ```target/debug/power-menu```
