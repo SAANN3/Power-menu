@@ -19,7 +19,7 @@ include_dir = "=0.7.4"
 ksni = "0.2.2"
 log = "0.4.22"
 manganis = "0.6.1"
-tokio = "1.42.0"
+tokio = "1.43.1"
 
 [profile.wasm-dev]
 inherits = "dev"
